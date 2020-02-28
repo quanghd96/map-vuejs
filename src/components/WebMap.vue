@@ -5,6 +5,8 @@
 <script lang="ts">
 import GraphicsLayer from 'esri/layers/GraphicsLayer';
 import Graphic from 'esri/Graphic';
+import PictureMarkerSymbol from 'esri/symbols/PictureMarkerSymbol';
+import PopupTemplate from 'esri/PopupTemplate';
 
 export default {
     name: 'WebMap',
@@ -17,16 +19,25 @@ export default {
             longitude: 105.8194541,
             latitude: 21.0227788
         };
-        const simpleMarkerSymbol = {
-            type: 'picture-marker', // autocasts as new PictureMarkerSymbol()
+        const symbol = new PictureMarkerSymbol({
             url: 'https://static.arcgis.com/images/Symbols/Shapes/BlackStarLargeB.png',
             width: '64px',
             height: '64px'
-        };
+        });
+
+        const popupTemplate = new PopupTemplate({
+            title: 'Coordinates',
+            content: () => {
+                const template = document.createElement('template');
+                template.innerHTML = '<h1>Hello</h1>';
+                return template.content.firstChild;
+            }
+        });
 
         const pointGraphic = new Graphic({
             geometry: point,
-            symbol: simpleMarkerSymbol
+            symbol: symbol,
+            popupTemplate: popupTemplate
         });
 
         graphicsLayer.add(pointGraphic);

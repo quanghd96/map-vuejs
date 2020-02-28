@@ -14,7 +14,8 @@ export const webmap = new WebMap({
 export const view = new MapView({
     container: 'viewDiv',
     map: webmap,
-    center: [105.8194541, 21.0227788]
+    center: [105.8194541, 21.0227788],
+    zoom: 10
 });
 
 // add a legend widget instance to the view
